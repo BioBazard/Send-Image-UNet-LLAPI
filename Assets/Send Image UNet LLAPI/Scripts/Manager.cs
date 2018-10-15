@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,9 @@ public class Manager : MonoBehaviour {
 
     protected void Awake()
     {
-        fullPath = Application.streamingAssetsPath + "/" + imagePath + "/" + imageName + "." + imageExtension;
+        string dirPath = Application.streamingAssetsPath + "/" + imagePath;
+        Directory.CreateDirectory(dirPath);
+
+        fullPath = dirPath + "/" + imageName + "." + imageExtension;
     }
 }
