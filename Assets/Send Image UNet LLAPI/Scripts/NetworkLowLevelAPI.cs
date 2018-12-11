@@ -181,7 +181,7 @@ public class NetworkLowLevelAPI : MonoBehaviour
                     Debug.Log("NetworkEventType : DataEvent = " + header_imageID);
                     Debug.Log("Header Type : " + header_type);
 
-                    if (header_type == SaveFile.HEADER_IMAGE_UPDATE)
+                    if (header_type == SaveFile.HEADER_IMAGE_UPDATE || header_type == SaveFile.HEADER_IMAGE_END)
                     {
                         byte[] newImageBytes = null;
 
@@ -213,15 +213,15 @@ public class NetworkLowLevelAPI : MonoBehaviour
 
                             imageBytes[header_imageID] = newImageBytes;
                         }
-                    }
 
-                    if (header_type == SaveFile.HEADER_IMAGE_END)
-                    {
-                        //Debug.Log("bytes lenght actual : " + imageBytes[imageID].Length);
+                        if (header_type == SaveFile.HEADER_IMAGE_END)
+                        {
+                            //Debug.Log("bytes lenght actual : " + imageBytes[imageID].Length);
 
-                        ServerManager server = (ServerManager)GameObject.FindObjectOfType(typeof(ServerManager));
-                        if (server != null)
-                            server.SaveNewImage(imageBytes[header_imageID]);
+                            ServerManager server = (ServerManager)GameObject.FindObjectOfType(typeof(ServerManager));
+                            if (server != null)
+                                server.SaveNewImage(imageBytes[header_imageID]);
+                        }
                     }
 
                     break;
